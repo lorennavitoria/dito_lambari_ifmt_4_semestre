@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dito Lambari - Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <style>
+        #carouselExample {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        #carouselExample .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .container-align {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .fade-text {
+            display: none;
+        }
+    </style>
+    
+    
+</head>
+<body style="background-color: rgb(237, 240, 243);">
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Dito Lambari</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teste/index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teste/receitas">Receitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teste/contato">Contato</a>
+                    </li>
+                    <li class= "nav-item">
+                        <a class="nav-link" href="/teste/reservas">Reservas</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <button id="botaoCliqueMe" class="fade-text" style="background-color: #ff9900; color: white;">Ganhe um presente</button>
+
+    <div id="campoEmail" style="display: none;">
+        <input type="text" id="inputEmail" placeholder="Insira seu email">
+        <button id="botaoPresente">Ganhe seu presente</button>
+    </div>
+
+    <hgroup>
+        <br/>
+        <div id="carouselExample" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="static/images/comida2.jpg" class="d-block w-100" alt="Imagem 2">
+                    <div class="carousel-caption">
+                        <h3>Experiência única</h3>
+                        <p>Uma viagem gastronômica inesquecível</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/comida3.jpg" class="d-block w-100" alt="Imagem 3">
+                    <div class="carousel-caption">
+                        <h3>Pratos Típicos</h3>
+                        <p>Venha experimentar</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="img/comida4.jpg" class="d-block w-100" alt="Imagem 4">
+                    <div class="carousel-caption">
+                        <h3>Sinta o Sabor de Cuiabá</h3>
+                        <p>Faça sua reserva</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" ariahidden="true"></span>
+                <span class="sr-only">Anterior</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" ariahidden="true"></span>
+                <span class="sr-only">Próximo</span>
+            </a>
+        </div>
+        <br/>
+        <div class="container container-align">
+            <h1>Bem-vindo ao Dito Lambari</h1>
+            <p>Um restaurante renomado na culinária cuiabana.</p>
+            <p>Nossos pratos autênticos e saborosos têm sido premiados ao longo dos anos, refletindo a maestria de nosso chefe.</p>
+            <p>Descubra a verdadeira essência da culinária de Cuiabá em um ambiente acolhedor e elegante.</p>
+        </div>
+    </hgroup>
+
+    <div class="container container-align mt-5">
+        <h2>Aproveite o nosso espaço</h2>
+        <button id="toggleDescription">Descubra o que temos de melhor</button>
+        <div id="description" style="display: none;">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="img/espaco-interno-climatizado.jpg" class="img-fluid" alt="Interior do Restaurante" height="102px">
+                    <p>Interior Aconchegante</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="img/receita2.jpg" class="img-fluid" alt="Prato Cuiabano" height="102px">
+                    <p>Deliciosos pratos</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="img/playground-de-madeira-para-restaurante-1.jpg" class="img-fluid" alt="Prato Cuiabano" height="102px">
+                    <p>Diversão para as crianças</p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <br/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $("#botaoCliqueMe").click(function() {
+
+        $("#campoEmail").slideDown("slow");
+            $("#botaoCliqueMe").hide();
+        });
+
+        $("#botaoPresente").click(function() {
+            var email = $("#inputEmail").val();
+            if (email !== "") {
+                $("#campoEmail").hide();
+                var mensagem = "Parabéns " + email + ", você acaba de ganhar um cupom de desconto! Basta falar o código COMIDACUIABANA no nosso restaurante!";
+                alert(mensagem);
+            } else {
+                alert("Por favor, insira um email válido.");
+            }
+        });
+
+        $(document).ready(function() {
+            $('.fade-text').fadeIn(2000).fadeOut(2000).fadeIn(2000);
+        });
+
+        $(document).ready(function() {
+            $('#toggleDescription').click(function() {
+                $('#description').toggle();
+                var buttonText = $('#description').is(':visible') ? 'Veja menos' : 'Descubra o que temos de melhor';
+                $(this).text(buttonText);
+            });
+        });
+
+       
+    </script>
+
+
+   
+    <footer>
+        <div class="container">
+            <b>Localização: Cuiabá, Av. CPA</b>
+            <br/>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+   
+</body>
+</html>

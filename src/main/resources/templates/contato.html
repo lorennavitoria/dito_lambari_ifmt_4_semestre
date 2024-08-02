@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dito Lambari - Contato</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <style>
+        #emailLink:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(237, 240, 243);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Dito Lambari</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+		                <ul class="navbar-nav">
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/index">Home</a>
+		                    </li>
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/receitas">Receitas</a>
+		                    </li>
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/contato">Contato</a>
+		                    </li>
+		                    <li class= "nav-item">
+		                        <a class="nav-link" href="/teste/reservas">Reservas</a>
+		                    </li>
+		                </ul>
+		            </div>
+    </nav>
+    <div class="container">
+        <h2>Informações de Contato</h2>
+        <p>Telefone: (55) 1234-5678</p>
+        <div id="emailLink" contenteditable>contato@ditolambari.com <button onclick="copiarTexto()" type="button">Copiar</button></div>
+        <p>
+            <a href="https://www.instagram.com/ditolambari" target="_blank">Instagram</a>
+            <br>
+            <a href="https://www.facebook.com/ditolambari" target="_blank">Facebook</a>
+        </p>
+    </div>
+    
+    <div class="container mt-5">
+        <h3>Receba nossas notificações</h3>
+        <form id="notificationForm">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" class="form-control" id="telefone" placeholder="Digite seu telefone">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        function copiarTexto() {
+            var textoCopiado = document.getElementById("emailLink");
+            var range = document.createRange();
+            range.selectNode(textoCopiado);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            alert("Endereço de e-mail copiado");
+        }
+        
+        document.getElementById("notificationForm").addEventListener("submit", function(event){
+            event.preventDefault();
+            alert("Obrigado por se inscrever!");
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dito Lambari - Reservas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+    <style>
+        #emailLink:focus {
+            outline: none;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        body {
+            background-color: rgb(237, 240, 243);
+            font-family: Arial, sans-serif;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Dito Lambari</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+		                <ul class="navbar-nav">
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/index">Home</a>
+		                    </li>
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/receitas">Receitas</a>
+		                    </li>
+		                    <li class="nav-item">
+		                        <a class="nav-link" href="/teste/contato">Contato</a>
+		                    </li>
+		                    <li class= "nav-item">
+		                        <a class="nav-link" href="/teste/reservas">Reservas</a>
+		                    </li>
+		                </ul>
+		            </div>>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2>Informações de Contato</h2>
+        <p>Telefone: (55) 1234-5678</p>
+        <div id="emailLink" contenteditable>contato@ditolambari.com <button onclick="copiarTexto()" type="button" class="btn btn-outline-secondary btn-sm">Copiar</button></div>
+        
+        <h2 class="mt-5">Faça uma Reserva</h2>
+        <div class="form-container mt-3">
+            <form>
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Seu nome">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Seu email">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="text" class="form-control" id="telefone" placeholder="Seu telefone">
+                </div>
+                <div class="form-group">
+                    <label for="data">Data da Reserva</label>
+                    <input type="date" class="form-control" id="data">
+                </div>
+                <div class="form-group">
+                    <label for="horario">Horário</label>
+                    <input type="time" class="form-control" id="horario">
+                </div>
+                <div class="form-group">
+                    <label for="pessoas">Número de Pessoas</label>
+                    <input type="number" class="form-control" id="pessoas" placeholder="Quantidade de pessoas">
+                </div>
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea class="form-control" id="mensagem" rows="3" placeholder="Mensagem opcional"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function copiarTexto() {
+            var textoCopiado = document.getElementById("emailLink").innerText;
+            navigator.clipboard.writeText(textoCopiado);
+            alert("Email copiado: " + textoCopiado);
+        }
+    </script>
+    <footer class="footer">
+        <div class="container">
+            <b>Localização: Cuiabá, Av. CPA</b>
+            <br/>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
