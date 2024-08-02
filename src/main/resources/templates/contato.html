@@ -13,26 +13,26 @@
 </head>
 <body style="background-color: rgb(237, 240, 243);">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">Dito Lambari</a>
+        <a class="navbar-brand" href="/teste/index">Dito Lambari</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 		<div class="collapse navbar-collapse" id="navbarNav">
-		                <ul class="navbar-nav">
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/index">Home</a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/receitas">Receitas</a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/contato">Contato</a>
-		                    </li>
-		                    <li class= "nav-item">
-		                        <a class="nav-link" href="/teste/reservas">Reservas</a>
-		                    </li>
-		                </ul>
-		            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/receitas">Receitas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/contato">Contato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/reservas">Reservas</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="container">
         <h2>Informações de Contato</h2>
@@ -60,7 +60,7 @@
                 <label for="telefone">Telefone</label>
                 <input type="tel" class="form-control" id="telefone" placeholder="Digite seu telefone">
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="button" class="btn btn-primary" onclick="enviarContato()">Enviar</button>
         </form>
     </div>
 
@@ -75,10 +75,34 @@
             alert("Endereço de e-mail copiado");
         }
         
-        document.getElementById("notificationForm").addEventListener("submit", function(event){
-            event.preventDefault();
-            alert("Obrigado por se inscrever!");
-        });
+        function enviarContato() {
+            var nome = document.getElementById("nome").value;
+            var email = document.getElementById("email").value;
+            var telefone = document.getElementById("telefone").value;
+
+            var contato = {
+                nome: nome,
+                email: email,
+                telefone: telefone
+            };
+
+            fetch('/api/contatos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contato)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Contato salvo com sucesso!");
+                document.getElementById("notificationForm").reset();
+            })
+            .catch(error => {
+                console.error("Erro ao salvar contato:", error);
+                alert("Erro ao salvar contato.");
+            });
+        }
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/teste")
-public class testeController { 
+public class RotasController { 
 
 	@RequestMapping("/index")
 	public String telaIndex() {

@@ -25,6 +25,13 @@
             background-color: #f8f9fa;
             text-align: center;
         }
+        .reservas-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -33,22 +40,21 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-		                <ul class="navbar-nav">
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/index">Home</a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/receitas">Receitas</a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a class="nav-link" href="/teste/contato">Contato</a>
-		                    </li>
-		                    <li class= "nav-item">
-		                        <a class="nav-link" href="/teste/reservas">Reservas</a>
-		                    </li>
-		                </ul>
-		            </div>>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/receitas">Receitas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/contato">Contato</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/teste/reservas">Reservas</a>
+                </li>
+            </ul>
         </div>
     </nav>
     <div class="container mt-5">
@@ -58,30 +64,30 @@
         
         <h2 class="mt-5">Faça uma Reserva</h2>
         <div class="form-container mt-3">
-            <form>
+            <form id="reservaForm">
                 <div class="form-group">
                     <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Seu nome">
+                    <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Seu email">
+                    <input type="email" class="form-control" id="email" placeholder="Seu email" required>
                 </div>
                 <div class="form-group">
                     <label for="telefone">Telefone</label>
-                    <input type="text" class="form-control" id="telefone" placeholder="Seu telefone">
+                    <input type="text" class="form-control" id="telefone" placeholder="Seu telefone" required>
                 </div>
                 <div class="form-group">
                     <label for="data">Data da Reserva</label>
-                    <input type="date" class="form-control" id="data">
+                    <input type="date" class="form-control" id="data" required>
                 </div>
                 <div class="form-group">
                     <label for="horario">Horário</label>
-                    <input type="time" class="form-control" id="horario">
+                    <input type="time" class="form-control" id="horario" required>
                 </div>
                 <div class="form-group">
                     <label for="pessoas">Número de Pessoas</label>
-                    <input type="number" class="form-control" id="pessoas" placeholder="Quantidade de pessoas">
+                    <input type="number" class="form-control" id="pessoas" placeholder="Quantidade de pessoas" required>
                 </div>
                 <div class="form-group">
                     <label for="mensagem">Mensagem</label>
@@ -90,6 +96,26 @@
                 <button type="submit" class="btn btn-primary btn-block">Enviar</button>
             </form>
         </div>
+
+        <div class="reservas-container mt-5">
+            <h3>Reservas do Usuário</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Pessoas</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+                <tbody id="reservasTable">
+                    <!-- Reservas serão carregadas aqui -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <script>
         function copiarTexto() {
@@ -97,6 +123,67 @@
             navigator.clipboard.writeText(textoCopiado);
             alert("Email copiado: " + textoCopiado);
         }
+
+        document.getElementById('reservaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Coletar dados do formulário
+            var reserva = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                data: document.getElementById('data').value,
+                horario: document.getElementById('horario').value,
+                pessoas: document.getElementById('pessoas').value,
+                mensagem: document.getElementById('mensagem').value
+            };
+
+            // Enviar dados para o servidor
+            fetch('/api/reservas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reserva)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Reserva criada com sucesso!');
+                carregarReservas(); // Atualizar lista de reservas
+                document.getElementById('reservaForm').reset(); // Resetar formulário
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro ao criar reserva.');
+            });
+        });
+
+        function carregarReservas() {
+            fetch('/api/reservas')
+                .then(response => response.json())
+                .then(reservas => {
+                    var reservasTable = document.getElementById('reservasTable');
+                    reservasTable.innerHTML = '';
+
+                    reservas.forEach(reserva => {
+                        var row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${reserva.nome}</td>
+                            <td>${reserva.email}</td>
+                            <td>${reserva.telefone}</td>
+                            <td>${reserva.dataReserva}</td>
+                            <td>${reserva.horario}</td>
+                            <td>${reserva.pessoas}</td>
+                            <td>${reserva.mensagem}</td>
+                        `;
+                        reservasTable.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar reservas:', error));
+        }
+
+        // Carregar reservas ao carregar a página
+        window.onload = carregarReservas;
     </script>
     <footer class="footer">
         <div class="container">
