@@ -60,7 +60,7 @@
     <div class="container mt-5">
         <h2>Informações de Contato</h2>
         <p>Telefone: (55) 1234-5678</p>
-        <div id="emailLink" contenteditable>contato@ditolambari.com <button onclick="copiarTexto()" type="button" class="btn btn-outline-secondary btn-sm">Copiar</button></div>
+        <div id="emailLink">contato@ditolambari.com <button onclick="copiarTexto()" type="button" class="btn btn-outline-secondary btn-sm">Copiar</button></div>
         
         <h2 class="mt-5">Faça uma Reserva</h2>
         <div class="form-container mt-3">
@@ -78,8 +78,8 @@
                     <input type="text" class="form-control" id="telefone" placeholder="Seu telefone" required>
                 </div>
                 <div class="form-group">
-                    <label for="data">Data da Reserva</label>
-                    <input type="date" class="form-control" id="data" required>
+                    <label for="dataReserva">Data da Reserva</label>
+                    <input type="date" class="form-control" id="dataReserva" required>
                 </div>
                 <div class="form-group">
                     <label for="horario">Horário</label>
@@ -132,7 +132,7 @@
                 nome: document.getElementById('nome').value,
                 email: document.getElementById('email').value,
                 telefone: document.getElementById('telefone').value,
-                data: document.getElementById('data').value,
+                data: document.getElementById('dataReserva').value,
                 horario: document.getElementById('horario').value,
                 pessoas: document.getElementById('pessoas').value,
                 mensagem: document.getElementById('mensagem').value
@@ -171,7 +171,7 @@
                             <td>${reserva.nome}</td>
                             <td>${reserva.email}</td>
                             <td>${reserva.telefone}</td>
-                            <td>${reserva.dataReserva}</td>
+                            <td>${reserva.data}</td>
                             <td>${reserva.horario}</td>
                             <td>${reserva.pessoas}</td>
                             <td>${reserva.mensagem}</td>
