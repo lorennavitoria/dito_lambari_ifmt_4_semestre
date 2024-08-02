@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/teste")
+@RequestMapping("/ditolambari")
 public class RotasController { 
 
 	@RequestMapping("/index")
