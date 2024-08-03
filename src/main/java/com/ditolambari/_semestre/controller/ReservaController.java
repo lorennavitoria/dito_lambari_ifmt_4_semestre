@@ -3,6 +3,7 @@ package com.ditolambari._semestre.controller;
 import com.ditolambari._semestre.model.Reserva;
 import com.ditolambari._semestre.repository.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,11 +30,19 @@ public class ReservaController {
         return reserva.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    // Create a new reserva
     @PostMapping
-    public Reserva createReserva(@RequestBody Reserva reserva) {
-        return reservaRepository.save(reserva);
+    public ResponseEntity<?> createReserva(@RequestBody Reserva reserva) {
+        // Verifica se já existe uma reserva com a mesma data e horário
+        boolean reservaExistente = reservaRepository.existsByDataReservaAndHorario(reserva.getDataReserva(), reserva.getHorario());
+
+        if (reservaExistente) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("A data e o horário selecionados já estão reservados. Por favor, escolha outro.");
+        }
+
+        Reserva novaReserva = reservaRepository.save(reserva);
+        return ResponseEntity.ok(novaReserva);
     }
+
 
     // Update an existing reserva
     @PutMapping("/{id}")

@@ -50,17 +50,17 @@
         <form id="notificationForm">
             <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome">
+                <input type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+                <input type="email" class="form-control" id="email" placeholder="Digite seu email" required>
             </div>
             <div class="form-group">
                 <label for="telefone">Telefone</label>
-                <input type="tel" class="form-control" id="telefone" placeholder="Digite seu telefone">
+                <input type="tel" class="form-control" id="telefone" placeholder="Digite seu telefone" required>
             </div>
-            <button type="button" class="btn btn-primary" onclick="enviarContato()">Enviar</button>
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
 
@@ -75,7 +75,9 @@
             alert("Endereço de e-mail copiado");
         }
         
-        function enviarContato() {
+        document.getElementById("notificationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
             var nome = document.getElementById("nome").value;
             var email = document.getElementById("email").value;
             var telefone = document.getElementById("telefone").value;
@@ -97,12 +99,13 @@
             .then(data => {
                 alert("Contato salvo com sucesso!");
                 document.getElementById("notificationForm").reset();
+                window.location.reload(); // Recarregar a página
             })
             .catch(error => {
                 console.error("Erro ao salvar contato:", error);
                 alert("Erro ao salvar contato.");
             });
-        }
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>

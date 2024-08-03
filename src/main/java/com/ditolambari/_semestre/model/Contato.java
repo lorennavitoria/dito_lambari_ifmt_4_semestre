@@ -2,6 +2,8 @@ package com.ditolambari._semestre.model;
 
 import java.io.Serializable;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,12 +20,15 @@ public class Contato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    @NotNull
     @Column(name = "email", nullable = false)
     private String email;
 
+    @NotNull
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
