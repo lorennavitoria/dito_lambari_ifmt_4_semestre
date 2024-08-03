@@ -10,8 +10,11 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 
 import org.antlr.v4.runtime.misc.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.micrometer.common.lang.NonNull;
 
@@ -32,33 +35,23 @@ public class Reserva{
     @Column(name = "telefone", nullable = false)
     private String telefone;
 
-
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(name = "data_reserva", nullable = false)
-    private LocalDate dataReserva;
+    private Date dataReserva;
 
+
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "horario", nullable = false)
     private LocalTime horario;
+
 
     @Column(name = "numero_pessoas", nullable = false)
     private int numeroPessoas;
 
     @Column(name = "mensagem")
     private String mensagem;
-
-    public Reserva() {
-    }
-
-    public Reserva(String nome, String email, String telefone, LocalDate dataReserva, LocalTime horario, int numeroPessoas, String mensagem) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataReserva = dataReserva;
-        this.horario = horario;
-        this.numeroPessoas = numeroPessoas;
-        this.mensagem = mensagem;
-    }
-
-    // Getters e Setters
 
     public Long getId() {
         return id;
@@ -92,14 +85,7 @@ public class Reserva{
         this.telefone = telefone;
     }
 
-    public LocalDate getDataReserva() {
-        return dataReserva;
-    }
-
-    public void setDataReserva(LocalDate dataReserva) {
-        this.dataReserva = dataReserva;
-    }
-
+  
     public LocalTime getHorario() {
         return horario;
     }
@@ -124,7 +110,18 @@ public class Reserva{
         this.mensagem = mensagem;
     }
 
-    @Override
+    
+    
+    
+    public Date getDataReserva() {
+		return dataReserva;
+	}
+
+	public void setDataReserva(Date dataReserva) {
+		this.dataReserva = dataReserva;
+	}
+
+	@Override
     public String toString() {
         return "Reserva{" +
                 "id=" + id +

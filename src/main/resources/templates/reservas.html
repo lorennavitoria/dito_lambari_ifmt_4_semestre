@@ -86,8 +86,8 @@
                     <input type="time" class="form-control" id="horario" required>
                 </div>
                 <div class="form-group">
-                    <label for="pessoas">Número de Pessoas</label>
-                    <input type="number" class="form-control" id="pessoas" placeholder="Quantidade de pessoas" required>
+                    <label for="numeroPessoas">Número de Pessoas</label>
+                    <input type="number" class="form-control" id="numeroPessoas" placeholder="Quantidade de pessoas" required>
                 </div>
                 <div class="form-group">
                     <label for="mensagem">Mensagem</label>
@@ -124,66 +124,75 @@
             alert("Email copiado: " + textoCopiado);
         }
 
-        document.getElementById('reservaForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+		document.getElementById('reservaForm').addEventListener('submit', function(event) {
+		    event.preventDefault();
+		
+		    // Coletar dados do formulário
+		    var nome = document.getElementById('nome').value;
+		    var email = document.getElementById('email').value;
+		    var telefone = document.getElementById('telefone').value;
+		    var data = document.getElementById('dataReserva').value;
+		    var horario = document.getElementById('horario').value;
+		    var numeroPessoas = document.getElementById('numeroPessoas').value;
+		    var mensagem = document.getElementById('mensagem').value;
+		
+		    var reserva = {
+		        nome: nome,
+		        email: email,
+		        telefone: telefone,
+		        dataReserva: data,
+		        horario: horario,
+				numeroPessoas: parseInt(numeroPessoas),
+		        mensagem: mensagem
+		    };
+		
+		    // Enviar dados para o servidor
+		    fetch('/api/reservas', {
+		        method: 'POST',
+		        headers: {
+		            'Content-Type': 'application/json'
+		        },
+		        body: JSON.stringify(reserva)
+		    })
+		    .then(response => response.json())
+		    .then(data => {
+		        alert('Reserva criada com sucesso!');
+		        carregarReservas(); // Atualizar lista de reservas
+		        document.getElementById('reservaForm').reset(); // Resetar formulário
+		    })
+		    .catch(error => {
+		        console.error('Erro:', error);
+		        alert('Erro ao criar reserva.');
+		    });
+		});
+		
+		function carregarReservas() {
+		    fetch('/api/reservas')
+		        .then(response => response.json())
+		        .then(reservas => {
+		            var reservasTable = document.getElementById('reservasTable');
+		            reservasTable.innerHTML = '';
+		
+		            reservas.forEach(reserva => {
+		                var row = document.createElement('tr');
+		                row.innerHTML = `
+		                    <td>${reserva.nome}</td>
+		                    <td>${reserva.email}</td>
+		                    <td>${reserva.telefone}</td>
+		                    <td>${reserva.dataReserva}</td>
+		                    <td>${reserva.horario}</td>
+		                    <td>${reserva.numeroPessoas}</td>
+		                    <td>${reserva.mensagem}</td>
+		                `;
+		                reservasTable.appendChild(row);
+		            });
+		        })
+		        .catch(error => console.error('Erro ao carregar reservas:', error));
+		}
+		
+		// Carregar reservas ao carregar a página
+		window.onload = carregarReservas;
 
-            // Coletar dados do formulário
-            var reserva = {
-                nome: document.getElementById('nome').value,
-                email: document.getElementById('email').value,
-                telefone: document.getElementById('telefone').value,
-                data: document.getElementById('dataReserva').value,
-                horario: document.getElementById('horario').value,
-                pessoas: document.getElementById('pessoas').value,
-                mensagem: document.getElementById('mensagem').value
-            };
-
-            // Enviar dados para o servidor
-            fetch('/api/reservas', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(reserva)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Reserva criada com sucesso!');
-                carregarReservas(); // Atualizar lista de reservas
-                document.getElementById('reservaForm').reset(); // Resetar formulário
-            })
-            .catch(error => {
-                console.error('Erro:', error);
-                alert('Erro ao criar reserva.');
-            });
-        });
-
-        function carregarReservas() {
-            fetch('/api/reservas')
-                .then(response => response.json())
-                .then(reservas => {
-                    var reservasTable = document.getElementById('reservasTable');
-                    reservasTable.innerHTML = '';
-
-                    reservas.forEach(reserva => {
-                        var row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${reserva.nome}</td>
-                            <td>${reserva.email}</td>
-                            <td>${reserva.telefone}</td>
-                            <td>${reserva.data}</td>
-                            <td>${reserva.horario}</td>
-                            <td>${reserva.pessoas}</td>
-                            <td>${reserva.mensagem}</td>
-                        `;
-                        reservasTable.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Erro ao carregar reservas:', error));
-        }
-
-        // Carregar reservas ao carregar a página
-        window.onload = carregarReservas;
     </script>
     <footer class="footer">
         <div class="container">
